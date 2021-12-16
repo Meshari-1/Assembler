@@ -255,7 +255,9 @@ void execut(OS *D)//--------------------- Execut the hex code in data.MEM[192..]
     
   }else if((int)*(D->E) == 7) // Print string at memory address and stopping the execution
   {
-   char *m = &(D->MEM[SP+1]);
+   int l = (int)(unsigned char)*(D->E+1) ;
+   char *m = &(D->MEM[l]);
+
    printf("prn [0x%02X]\n",(unsigned char)*(D->E+1));
    printf("String ------>%s\n",m);
    
