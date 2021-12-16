@@ -1,7 +1,7 @@
-push 200
-push A
-add SP, 20
-push 259
-push 243
-dec SP, 20
-push 80
+mov A, 0x64
+push 0xC8
+pop B
+push 0xFA
+mov C, [0xBF]
+pop D
+add D, 0x01
