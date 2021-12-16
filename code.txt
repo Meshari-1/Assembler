@@ -1,0 +1,7 @@
+push 200
+push A
+add SP, 20
+push 259
+push 243
+dec SP, 20
+push 80
