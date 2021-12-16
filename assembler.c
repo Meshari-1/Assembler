@@ -255,12 +255,9 @@ void execut(OS *D)//--------------------- Execut the hex code in data.MEM[192..]
     
   }else if((int)*(D->E) == 7) // Print string at memory address and stopping the execution
   {
-   int n = 0 ;
-   while(D->MEM[(int)*(D->E+1-n)] != '\0')
-   {
-   printf("%c\n",D->MEM[(int)*(D->E+1-n)]);
-   ++n;
-   }
+   char *m = &(D->MEM[SP+1]);
+   printf("prn [0x%02X]\n",(unsigned char)*(D->E+1));
+   printf("String ------>%s\n",m);
    
    return ;
     
@@ -370,7 +367,7 @@ void Fread(OS *D ,FILE *fPtr)//----------Read from a text file , tokenization, p
            {
                 D->MEM[ins] = (char)(1) ; // for example: 192 --> C0  &&  0000 0001 --> 0x01 one byte
                 D->MEM[ins+1] = (char)(toupper(*p)-65) ; 
-                h = toInt(++y,2); // y --> m]  and 2 to skip ']' && '\0'
+                h = toInt((y+1),2); // y --> m]  and 2 to skip ']' && '\0'
                 temp = (char)h ;
                 D->MEM[ins+2] = temp ;
                 
@@ -380,7 +377,7 @@ void Fread(OS *D ,FILE *fPtr)//----------Read from a text file , tokenization, p
          }else if(strcmp(y,"SP") != 0  && strcmp(y,"PC") != 0 )
          {
                 D->MEM[ins] = (char)(2) ; 
-                h = toInt(++y,2); // y --> m]  and 2 to skip ']' && '\0'
+                h = toInt((y+1),2); // y --> m]  and 2 to skip ']' && '\0'
                 temp = (char)h ;
                 D->MEM[ins+1] = temp ;
                 y = strtok(NULL," ,\n");
@@ -405,7 +402,7 @@ void Fread(OS *D ,FILE *fPtr)//----------Read from a text file , tokenization, p
            {
                 D->MEM[ins] = (char)(1) ; 
                 D->MEM[ins+2] = (char)(4) ;
-                h = toInt(++y,2); // y --> m]  and 2 to skip ']' && '\0'
+                h = toInt((y+1),2); // y --> m]  and 2 to skip ']' && '\0'
                 temp = (char)h ;
                 D->MEM[ins+1] = temp ;
   
@@ -428,7 +425,7 @@ void Fread(OS *D ,FILE *fPtr)//----------Read from a text file , tokenization, p
            {
                 D->MEM[ins] = (char)(1) ; 
                 D->MEM[ins+1] = (char)(5) ;
-                h = toInt(++y,2); // y --> m]  and 2 to skip ']' && '\0'
+                h = toInt((y+1),2); // y --> m]  and 2 to skip ']' && '\0'
                 temp = (char)h ;
                 D->MEM[ins+2] = temp ;
                  
@@ -446,7 +443,7 @@ void Fread(OS *D ,FILE *fPtr)//----------Read from a text file , tokenization, p
            {
 
                 D->MEM[ins] = (char)(2) ; 
-                h = toInt(++p,2); // y --> m]  and 2 to skip ']' && '\0'
+                h = toInt((p+1),2); // y --> m]  and 2 to skip ']' && '\0'
                 temp = (char)h ;
                 D->MEM[ins+1] = temp ;
                 D->MEM[ins+2] = (char)(4) ; 
@@ -454,7 +451,7 @@ void Fread(OS *D ,FILE *fPtr)//----------Read from a text file , tokenization, p
            }else if(strcmp(y,"PC") == 0)
            {
                 D->MEM[ins] = (char)(2) ; 
-                h = toInt(++p,2); // y --> m]  and 2 to skip ']' && '\0'
+                h = toInt((p+1),2); // y --> m]  and 2 to skip ']' && '\0'
                 temp = (char)h ;
                 D->MEM[ins+1] = temp ;
                 D->MEM[ins+2] = (char)(5) ; 
@@ -574,7 +571,7 @@ void Fread(OS *D ,FILE *fPtr)//----------Read from a text file , tokenization, p
          y = strtok(NULL," ,\n");
 
           D->MEM[ins] = (char)(7) ; 
-          h = toInt(++y,2); // y --> m]  and 2 to skip ']' && '\0'
+          h = toInt((y+1),2); // y --> m]  and 2 to skip ']' && '\0'
           temp = (char)h ;
           D->MEM[ins+1] = temp ;
           D->MEM[ins+2] = (char)(0) ;
